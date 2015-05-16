@@ -30,6 +30,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    ulAuxAlph,           // auxiliar alphabet list on alphabet management
 	    ulStates,            // list of states on states&rules management
 	    ulStacks,            // list containing the input queue and all the stacks
+            computation,         // textarea containing computation
 	    iAlphSym,            // input field for the alphabet symbols
 	    iAuxAlphSym,         // input field for the auxiliar alphabet symbols
 	    iQueue,              // input field for the queue.
@@ -83,7 +84,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 		    next_rules = ((c_state >= 0) && states[c_state].nextRules()) || [],
 		    stateListHtml = [],
 		    statesDefHtml = [],
-		    stacksListHtml = [];
+		    stacksListHtml = [],
+		    computationHtml = [];
+		    computationHtml.push(computation.value);
 		for (i = 0; i < nStates; i += 1) {
 			statesDefHtml.push("q" + i.toString(10).sub());
 			// state list
@@ -101,6 +104,16 @@ AUTOMATON_CONTROLLER = (function (M) {
 				stateListHtml.push('<li');
 				if (i === c_state && -1 !== next_rules.indexOf(j)) {
 					stateListHtml.push(' class="next"');
+					computationHtml.push('q' + c_state);
+					for (s = 0; s < nStacks; s += 1) {
+						stack = M.getStack(s);
+						computationHtml.push(" Stack " + (s+1) + ':');
+						while (stack.length > 0) {
+							computationHtml.push(stack.pop().toString(10));
+						}		
+					}
+					computationHtml.push("\n");
+					computation.innerHTML = computationHtml.join("");
 				}
 				stateListHtml.push('>Π(q' + i.toString(10));
 				s = states[i].rules[j].X;
@@ -505,10 +518,11 @@ AUTOMATON_CONTROLLER = (function (M) {
 			bSetQueue        = document.getElementById("set_queue");
 			ulStates         = document.getElementById("state_list");
 			ulStacks         = document.getElementById("queuestacks_list");
+			computation      = document.getElementById("computation");
 			bExecution       = document.getElementById("goto_execution");
 			bStep            = document.getElementById("run_step");
 			bRun             = document.getElementById("run_all");
-			bStop             = document.getElementById("stop");
+			bStop            = document.getElementById("stop");
 			editButtons      = document.getElementById("edit_buttons");
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");
