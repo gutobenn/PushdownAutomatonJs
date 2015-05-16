@@ -4,7 +4,7 @@ PushdownAutomatonJs
 A generic deterministic pushdown automaton simulator in javascript.
 Also supports multiple stacks (turing complete), a single stack (context-free languages) and no stack (finite automaton).
 
-The machine dedinition used is as followed:<br>
+The machine definition used is as followed:<br>
 `M = {Σ, Q, Π, q0, F, V}`<br>
 Where:<br>
 `M` := Machine<br>
