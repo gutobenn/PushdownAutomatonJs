@@ -105,6 +105,11 @@ AUTOMATON_CONTROLLER = (function (M) {
 				if (i === c_state && -1 !== next_rules.indexOf(j)) {
 					stateListHtml.push(' class="next"');
 					computationHtml.push('q' + c_state);
+					computationHtml.push(" Queue: ");
+					queue = M.getQueue();
+					for (q = 0; q < queue.length; q += 1) {
+						computationHtml.push(queue[q]);
+					}
 					for (s = 0; s < nStacks; s += 1) {
 						stack = M.getStack(s);
 						computationHtml.push(" Stack " + (s+1) + ':');
